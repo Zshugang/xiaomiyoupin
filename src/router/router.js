@@ -7,6 +7,13 @@ export default [{
     path: '/login',
     name: 'Login',
     component: () => import('../views/Login.vue'),
+    // children:[
+    //     {
+    //         path:'/login/register',
+    //         name:'register',
+    //         component:()=> import('../views/register.vue')
+    //     }
+    // ]
 }, {
     path: '/cart',
     name: 'Cart',
@@ -20,4 +27,8 @@ export default [{
         }
     },
     component: () => import('../views/Product.vue'),
+},{
+    path:'/login/register',
+    name:'Rrgister',
+    component:()=> import('../views/register.vue')
 }]
