@@ -1,22 +1,216 @@
 <template>
-    <div>
-        顶部-功能组件
+  <div class="S-header-top">
+    <div class="container">
+      <div class="S-header-top-right">
+        <div class="S-title login-info">
+          <i class="S-login"></i>
+          <span class="S-username">22222222222</span>
+          <i class="S-down-icon"></i>
+          <ul class="S-login-info-ul">
+            <li>
+              <a href="#">我的订单</a>
+            </li>
+            <li>
+              <a href="#">我的订单</a>
+            </li>
+            <li>
+              <a href="#">我的订单</a>
+            </li>
+            <li>
+              <a href="#">我的订单</a>
+            </li>
+            <li>
+              <a href="#">我的订单</a>
+            </li>
+            <li>
+              <a href="#">我的订单</a>
+            </li>
+          </ul>
+        </div>
+        <span class="S-title line"></span>
+        <div class="S-title help">
+          <span>帮助中心</span>
+        </div>
+        <span class="S-title line"></span>
+        <div class="S-title download">
+          <i class="S-phone"></i>
+          <span class="S-phone-text">下载APP</span>
+        </div>
+        <span class="S-title line"></span>
+        <div class="S-title clauses-con">
+          <span>资质证照&nbsp/&nbsp协议规则</span>
+          <i class="S-down-icon"></i>
+          <ul class="S-clauses-con-ul">
+            <li>
+              <a href="#">资质证照</a>
+            </li>
+            <li>
+              <a href="#">协议规则</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
+  </div>
 </template>
 <script>
 // @ is an alias to /src
 export default {
-    name: 'XXX',
-    data() {
-        return {
-        
-        }
-    },
-    components: {
-        
-    }
-}
+  name: "XXX",
+  data() {
+    return {};
+  },
+  components: {}
+};
 </script>
-<style lang="less">
+<style lang="less" scoped>
+.S-header-top {
+  width: 100%;
+  height: 48px;
+  color: #e7e7e7;
+  background: #333;
+  font-size: 14px;
+  .container {
+    width: 1080px;
+    margin: 0 auto;
 
+    .S-header-top-right {
+      float: right;
+
+      .S-title {
+        float: left;
+        line-height: 48px;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+
+        ul {
+          // width: 100px;
+          background: #fff;
+          position: absolute;
+          z-index: 999;
+          left: 15px;
+          top: 48px;
+          box-shadow: 0 3px 28px rgba(0, 0, 0, 0.1);
+
+          li {
+            height: 35px;
+            line-height: 35px;
+            padding: 0 10px;
+            text-align: center;
+            color: #e7e7e7;
+            a {
+              color: #666;
+            }
+          }
+          li:hover {
+            color: #fff;
+            background-color: rgb(132, 95, 63);
+            a {
+              color: #fff;
+            }
+          }
+        }
+      }
+      .S-title:hover span {
+        color: #fff;
+      }
+      .login-info {
+        width: 70px;
+        padding-left: 30px;
+        padding-right: 20px;
+
+        .S-login {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          border-radius: 50%;
+          background: url(../assets/img/yp-icons.png) 0 -726px;
+          position: absolute;
+          top: 8px;
+          left: 0;
+        }
+        .S-username {
+          margin-left: 3px;
+          display: inline-block;
+          width: 90%;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap;
+        }
+        .S-down-icon {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          background: url(../assets/img/yp-icons.png) 0 -1678px;
+          position: absolute;
+          top: 10px;
+          right: 0;
+        }
+        .S-login-info-ul {
+          width: 100px;
+          //   opacity: 0;
+          display: none;
+          // transition: all ease .5s;
+        }
+      }
+      .login-info:hover .S-login-info-ul {
+        // height: 100%;
+        display: block;
+        // opacity: 1;
+      }
+      .line {
+        display: inline-block;
+        margin: 17px 3px 0 6px;
+        border-right: 1px solid #666;
+        height: 16px;
+        vertical-align: middle;
+      }
+      .help {
+        margin-right: 8px;
+        margin-left: 11px;
+      }
+      .download {
+        margin-left: 5px;
+        margin-right: 5px;
+        padding-left: 30px;
+
+        .S-phone {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          background: url(../assets/img/yp-icons.png) 0 -964px;
+          position: absolute;
+          left: 0;
+          top: 9px;
+        }
+        .S-phone-text {
+          box-sizing: border-box;
+        }
+      }
+      .clauses-con {
+        padding-right: 40px;
+        padding-left: 11px;
+
+        .S-down-icon {
+          display: inline-block;
+          width: 30px;
+          height: 30px;
+          background: url(../assets/img/yp-icons.png) 0 -1678px;
+          position: absolute;
+          top: 10px;
+          right: 10px;
+        }
+        .S-clauses-con-ul {
+          width: 160px;
+          left: 0;
+          display: none;
+        }
+      }
+      .clauses-con:hover .S-clauses-con-ul {
+        display: block;
+      }
+    }
+  }
+}
 </style>

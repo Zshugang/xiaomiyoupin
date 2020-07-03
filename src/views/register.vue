@@ -163,7 +163,7 @@
 export default {};
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 .registerBox {
   background: #f5f5f5;
   width: 100%;
@@ -206,6 +206,7 @@ export default {};
             .title_big30 {
               font-size: 30px;
               font-weight: normal;
+              text-align: center;
               color: #333;
               line-height: 1.5;
             }

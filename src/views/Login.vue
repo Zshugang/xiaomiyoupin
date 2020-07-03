@@ -160,7 +160,7 @@ export default {
   }
 };
 </script>
-<style lang="less" >
+<style lang="less" scoped>
 .login {
   width: 100%;
   // min-height: 100%;
@@ -193,7 +193,7 @@ export default {
             }
             .log_title {
               font-size: 22px;
-              padding-top: 15px;
+              padding: 15px 355px 0px;
               color: #333;
               font-weight: normal;
             }
