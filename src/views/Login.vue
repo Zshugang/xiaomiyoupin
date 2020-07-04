@@ -43,17 +43,17 @@
                 <div class="loginbox">
                   <div class="lg_input">
                     <label class="labelbox" for>
-                      <input type="text" placeholder="邮箱/手机号码/小米ID" />
+                      <input type="text" placeholder="邮箱/手机号码/小米ID" v-model="account" />
                     </label>
                     <label class="labelbox" for>
-                      <input type="password" placeholder="密码" />
+                      <input type="password" placeholder="密码" v-model="password" />
                     </label>
                   </div>
                   <!-- 错误提示 -->
                   <div class="err_tip"></div>
                   <!-- 提交按钮 -->
                   <div class="sub">
-                    <input class="btnadpt" type="button" value="登录" />
+                    <input class="btnadpt" type="button" value="登录" @click="login" />
                   </div>
                   <!-- 其他方式登录 -->
                   <div class="other_panel">
@@ -144,17 +144,39 @@
 </template>
 <script>
 // @ is an alias to /src
-import register from "../views/register";
+import { mapActions } from "vuex";
+import API from "../api/login";
 export default {
   name: "login",
   data() {
     return {
-      username: "",
+      account: "",
       password: "",
       userId: ""
     };
   },
-  methods: {},
+  methods: {
+    login() {
+      // console.log(API);
+      const { username, password} = this;
+      API.userLogin( username, password, ).then(res => {
+        if (parseInt(res.code) === 0) {
+          // console.log(this.$cookie+'hahah')
+          //Session会话，需要把浏览器关掉，Session缓冲才会删掉
+          this.$cookie.set("userId", res.data.id, { expires: "Session" });
+          this.saveUserName(res.data.name);
+          this.$router.push({
+            name: "Product",
+            params: {
+              id:res.data.name
+            }
+          });
+          // this.$router('/')
+        }
+      });
+    },
+    ...mapActions(["saveUserName"])
+  },
   components: {
     // register
   }

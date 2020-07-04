@@ -4,8 +4,8 @@ import router from './router'
 import store from './store'
 // import ElementUI from 'element-ui';
 
-//导入公共样式
-import './assets/css/reset.min.css';
+
+
 
 Vue.config.productionTip = false
 // Vue.use(ElementUI);

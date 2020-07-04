@@ -6,17 +6,17 @@ function addCart(options){
        pid:'',
        count:1
     },options)
-    return axios.post('/add',options)
+    return axios.post('/cart/add',options)
 }
 
 //修改购物车某产品的数量
 function changeCount(options){
-    return axios.post('/update',options)
+    return axios.post('/cart/update',options)
 }
 
 //移除某产品
 function removeProduct(id){
-    return axios.get('/remove',id)
+    return axios.get('/cart/remove',id)
 }
 
 //获取当前用户指定状态下的订单信息
@@ -24,12 +24,12 @@ function orderInfo(options){
     options = Object.assign({
         state:0
     },options)
-    return axios.get('/list',)
+    return axios.get('/cart/list',)
 }
 
 //修改订单状态
 function modifyOrder(options){
-    return axios.get('/state',options)
+    return axios.get('/cart/state',options)
 }
 
 export default{
