@@ -1,5 +1,5 @@
 <template>
-  <div class="login">
+  <div class="checkPhoneBox">
     <!-- 上半部分 -->
     <div class="container">
       <!-- 为了加内填充 -->
@@ -43,14 +43,39 @@
                 <div class="loginbox">
                   <div class="lg_input">
                     <label class="labelbox" for>
-                      <input type="text" placeholder="邮箱/手机号码/小米ID" v-model="account" />
+                      <div class="turn_area"></div>
+                      <div class="country_list">
+                        <div class="animation countrycode_selector">
+                          <span class="country_code">
+                            <tt class="countrycode-value">+86</tt>
+                            <i class="icon_arrow_down"></i>
+                          </span>
+                        </div>
+                      </div>
+                      <input class="ipt_right" type="text" placeholder="手机号码" v-model="phoneNumber" />
                     </label>
                     <label class="labelbox" for>
-                      <input type="password" placeholder="密码" v-model="password" />
+                      <!-- <input type="datetime-local" name="" id=""> -->
+                      <input
+                        class="ipt_left"
+                        type="number"
+                        placeholder="短信验证码"
+                        v-model="checkcode"
+                        autocomplete="off"
+                        name="password"
+                        _type="number"
+                        pattern="null"
+                      />
+                      <div class="code-panel">
+                        <a href="javascript:;" class="send_ticket" @click="checkform">获取验证码</a>
+                      </div>
                     </label>
                   </div>
                   <!-- 错误提示 -->
-                  <div class="err_tip"></div>
+                  <div class="err_tip" v-if="tip===0?false:true">
+                    <em class="icon_error"></em>
+                    <span class="error-con">手机格式不正确</span>
+                  </div>
                   <!-- 提交按钮 -->
                   <div class="sub">
                     <input class="btnadpt" type="button" value="登录" @click="login" />
@@ -58,13 +83,11 @@
                   <!-- 其他方式登录 -->
                   <div class="other_panel">
                     <span class="sms_link">
-                      <router-link to="/login/checkPhone" class="login_type_link">手机短信登录/注册</router-link>
+                      <router-link to="/login" class="login_type_link">用户名密码登录</router-link>
                     </span>
                     <div class="reverse">
                       <div class="n_links_area">
-                        <router-link to="/login/register" class="outer-link">立即注册</router-link>
-                        <span>|</span>
-                        <a href class="outer-link">忘记密码？</a>
+                        <a class="outer-link">收不到验证码？</a>
                       </div>
                     </div>
                     <div class="other_login_type">
@@ -142,66 +165,57 @@
     </div>
   </div>
 </template>
+
 <script>
-// @ is an alias to /src
-import { mapActions } from "vuex";
-import md5 from "blueimp-md5";
 import API from "../api/login";
+import md5 from "blueimp-md5";
 export default {
-  name: "login",
   data() {
     return {
-      account: "",
-      password: "",
-      userId: ""
+      phoneNumber: "",
+      tip: 0,
+      checkcode: ""
     };
   },
   methods: {
-    checkAccount() {
-      //用户名 手机
-      let argArr = [
-        /^((\w{2,20})|([\u4E00-\u9FA5]{2,10}(·[\u4E00-\u9FA5]{2,10}){0,2}))$/,
-        /^1\d{10}$/
-      ];
-      return argArr.some(item => {
-        return item.test(this.account);
-      });
-    },
-    checkPassWord() {
-      return /^\w{6,16}$/.test(this.password);
-    },
-    login() {
-      let { account, password } = this;
-      if (!this.checkAccount() || !this.checkPassWord()) {
-        this.$message.error("请输入合法的账号和密码！");
+    async checkform() {
+      if (!/^1\d{10}$/.test(this.phoneNumber)) {
+        this.tip = 1;
         return;
+      } else {
+        this.tip = 0;
+        let flag = await API.phoneNumber(this.phoneNumber);
+        console.log(flag);
+        if (flag.code == 1) {
+          this.$message.warning("请先注册账号！！", {
+            callback: action => {
+              this.$router.push("/login/register");
+            }
+          });
+          return;
+        }
+        let code = await API.sendCaptcha(this.phoneNumber);
+        console.log(code);
+        if (code.code == 0) {
+          this.$message.success("发送成功!!请注意查收！");
+        }
       }
-      password = md5(password);
-      API.userLogin({ account, password }).then(res => {
-        console.log(res);
-        // console.log(this.$cookie+'hahah')
-        //Session会话，需要把浏览器关掉，Session缓冲才会删掉
-        // console.log( this.$cookie);
-        this.$cookie.set("userId", res.data.id, { expires: "Session" });
-        this.saveUserName(res.data.name);
-        console.log(1);
-        // this.$router.push({
-        //   name: "Product",
-        //   params: {
-        //     id: res.data.id
-        //   }
-        // });
-        // this.$router.push('/cart')
-        // location.href = location.origin;
-        window.location.href = "/#/";
-      });
+      return;
     },
-    ...mapActions(["saveUserName"])
+    async login() {
+      let { checkcode, phoneNumber } = this;
+      checkcode = md5(checkcode);
+      let res = API.captchaOront({ code: checkcode, phone: phoneNumber });
+      if (res.code == 0) {
+        window.location.href = "/#/";
+      }
+    }
   }
 };
 </script>
+
 <style lang="less" scoped>
-.login {
+.checkPhoneBox {
   width: 100%;
   // min-height: 100%;
   height: auto;
@@ -248,18 +262,104 @@ export default {
             margin: 0 auto;
             padding-bottom: 20px;
             .loginbox {
+              padding-top: -10px;
               .lg_input {
                 position: relative;
                 .labelbox {
-                  input {
+                  margin-bottom: 14px;
+                  position: relative;
+                  // border: 1px solid #e0e0e0;
+                  .ipt_left {
+                    display: inline-block;
                     margin-bottom: 14px;
                     border: 1px solid #e0e0e0;
                     height: 22px;
                     line-height: 22px;
                     padding: 13px 16px 13px 14px;
-                    display: block;
-                    width: 326px;
+                    display: inline-block;
+                    width: 220px;
                   }
+                  input::-webkit-outer-spin-button,
+                  input::-webkit-inner-spin-button {
+                    -webkit-appearance: none !important;
+                  }
+                  .ipt_right {
+                    margin-bottom: 14px;
+                    border: 1px solid #e0e0e0;
+                    height: 22px;
+                    line-height: 22px;
+                    font-size: 14px;
+                    padding: 13px 16px 13px 14px;
+                    // display: inline-block;
+                    float: right;
+                    width: 290px;
+                  }
+                  .code-panel {
+                    display: inline-block;
+                    border: 1px solid #e0e0e0;
+                    vertical-align: center;
+                    padding: 14px 12px;
+                    color: #333;
+                    overflow: hidden;
+                    margin-bottom: -20px;
+                    // position: relative;
+                    // top: 0;
+                    // right: 0;
+                    .send_ticket {
+                      cursor: pointer;
+                      color: #003ab5;
+                    }
+                  }
+                  .turn_area {
+                    height: 11px;
+                    padding: 0px 0 18px 10px;
+                  }
+                  .country_list {
+                    height: 22px;
+                    line-height: 22px;
+                    padding: 13px 7.4px;
+                    border: 1px solid #e0e0e0;
+                    margin-left: 0px;
+                    color: #333;
+                    display: block;
+                    overflow: hidden;
+                    position: relative;
+                    float: left;
+                    .animation {
+                      position: relative;
+                      -webkit-animation: fade-in ease-in-out 0.5s;
+                      animation-name: fade-in;
+                      animation-timing-function: ease-in-out;
+                      animation-duration: 0.5s;
+                    }
+                    span {
+                      position: relative;
+                      display: inline-block;
+                      vertical-align: middle;
+                      tt {
+                        font-family: monospace;
+                      }
+                    }
+                  }
+                }
+              }
+              .err_tip {
+                margin-bottom: 5px;
+                line-height: 20px;
+                color: #ff6700;
+                .icon_error {
+                  width: 14px;
+                  height: 14px;
+                  margin: -1px 5px 0 0;
+                  overflow: hidden;
+                  display: inline-block;
+                  vertical-align: middle;
+                  background: url(../assets/img/sprite_login.gif);
+                  background-position: 0 -69px;
+                }
+                span {
+                  font-size: 14px;
+                  vertical-align: middle;
                 }
               }
               .sub {

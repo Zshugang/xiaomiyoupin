@@ -9,8 +9,8 @@ axios.defaults.headers.post["Content-Type"] = "application/x-www-form-urlencoded
 axios.defaults.transformRequest = data => qs.stringify(data);
 axios.interceptors.request.use(config => {
     //在登录成功后，把从服务器获取的TOKEN信息存储到本地，以后再发送请求的时候，一般会把TOKEN带上（自定义请求头携带）
-    let token = localStorage.getItem('token');
-    token && (config.headers['Authorization'] = token);
+    // let token = localStorage.getItem('token');
+    // token && (config.headers['Authorization'] = token);
     return config;
    
 }, function (error) {
@@ -18,13 +18,15 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error);
 });
 axios.interceptors.response.use(response => {
-    if (response.code != 0) {
+    console.log(response);
+    if (response.code == 1) {
         Message.error({
             message: response.codeText,
-            duration: 1000
-        })
+            duration: 2000
+        });
+        return; 
     }
-    return response;
+    return response.data;
 }, reason => {
     let response = reason.response;
     if (response) {

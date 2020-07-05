@@ -47,6 +47,10 @@ function sendCaptcha(phone){
 
 //校验验证码是否正确
 function captchaOront(options){
+    options = Object.assign({
+        phone:'',
+        code:''
+    },options)
     return axios.post('/user/checkCode',options)
 }
 

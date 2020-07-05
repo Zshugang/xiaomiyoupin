@@ -7,7 +7,9 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    
+    account:'',
+    //购物车数量
+    cartCount:0
   },
   mutations,
   modules: {

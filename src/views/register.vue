@@ -18,11 +18,15 @@
                     <div class="listtit">
                       <div class="tits c_b">
                         <p class="result-select-regions">中国</p>
-                        <i class="icon_cirarr"></i>
+                        <i class="icon_cirarr" @mouseenter="getout"></i>
                       </div>
                     </div>
                     <!-- 选取地区下拉菜单 -->
-                    <div class="country-container-panel" style="display:none;">
+                    <div
+                      class="country-container-panel"
+                      v-if="flag===0?false:true"
+                      @mouseleave="getin"
+                    >
                       <div class="country_container">
                         <div class="search-code">
                           <i class="icon_search"></i>
@@ -99,15 +103,62 @@
                         </div>
                       </div>
                       <div class="inputbg">
-                        <input type="hidden" />
                         <label for class="labelbox">
-                          <input type="tel" placeholder="请输入手机号码" />
+                          <input
+                            type="tel"
+                            placeholder="请输入手机号码"
+                            v-model="phone"
+                            @blur="checkPhone"
+                          />
                         </label>
+                        <div class="err_tip" v-if="tip1===0?false:true">
+                          <em class="icon_error"></em>
+                          <span class="error-con">手机号码格式不正确</span>
+                        </div>
+                        <p class="select-cycode-result">用户名</p>
+                        <label for class="labelbox1">
+                          <input type="name" placeholder="请输入用户名" v-model="name" @blur="checkName" />
+                        </label>
+                        <div class="err_tip" v-if="tip2===0?false:true">
+                          <em class="icon_error"></em>
+                          <span class="error-con">用户名格式不正确</span>
+                        </div>
+                        <p class="select-cycode-result">密 码</p>
+                        <label for class="labelbox1">
+                          <input
+                            type="password"
+                            placeholder="请输入注册密码"
+                            v-model="password"
+                            @blur="checkPassword"
+                          />
+                        </label>
+                        <div class="err_tip" v-if="tip3===0?false:true">
+                          <em class="icon_error"></em>
+                          <span class="error-con">请输入六位以上密码</span>
+                        </div>
+                        <p class="select-cycode-result">支付密码</p>
+                        <label for class="labelbox1">
+                          <input
+                            type="password"
+                            placeholder="请输入支付密码"
+                            v-model="passwordPay"
+                            @blur="checkpasswordPay"
+                          />
+                        </label>
+                        <div class="err_tip" v-if="tip4===0?false:true">
+                          <em class="icon_error"></em>
+                          <span class="error-con">请输入六位以上密码</span>
+                        </div>
                       </div>
-                      <div class="err_tip"></div>
+                      <!-- <div class="err_tip"></div> -->
                     </div>
                     <div class="fixed_bot">
-                      <input type="submit" value="立即注册" class="btn332 btn_reg_1 submit-step" />
+                      <input
+                        type="submit"
+                        value="立即注册"
+                        class="btn332 btn_reg_1 submit-step"
+                        @click="register"
+                      />
                     </div>
                   </div>
                 </div>
@@ -160,7 +211,107 @@
 </template>
 
 <script>
-export default {};
+import API from "../api/login";
+import { Message } from "element-ui";
+export default {
+  data() {
+    return {
+      phone: "",
+      name: "",
+      password: "",
+      passwordPay: "",
+      //0代表隐藏 1代表显示
+      flag: 0,
+      //错误提示
+      tip1: 0,
+      tip2: 0,
+      tip3: 0,
+      tip4: 0
+    };
+  },
+  computed: {},
+  methods: {
+    checkPhone() {
+      console.log(1);
+      if (!/^1\d{10}$/.test(this.phone)) {
+        this.tip1 = 1;
+      } else {
+        this.tip1 = 0;
+      }
+      return /^1\d{10}$/.test(this.phone);
+    },
+    checkName() {
+      if (
+        !/^((\w{2,20})|([\u4E00-\u9FA5]{2,10}(·[\u4E00-\u9FA5]{2,10}){0,2}))$/.test(
+          this.name
+        )
+      ) {
+        this.tip2 = 1;
+      } else {
+        this.tip2 = 0;
+      }
+      return /^((\w{2,20})|([\u4E00-\u9FA5]{2,10}(·[\u4E00-\u9FA5]{2,10}){0,2}))$/.test(
+        this.name
+      );
+    },
+    checkPassword() {
+      if (!/^\w{6,16}$/.test(this.password)) {
+        this.tip3 = 1;
+      } else {
+        this.tip3 = 0;
+      }
+      return /^\w{6,16}$/.test(this.password);
+    },
+    checkpasswordPay() {
+      if (!/^\w{6,16}$/.test(this.passwordPay)) {
+        this.tip4 = 1;
+      } else {
+        this.tip4 = 0;
+      }
+      return /^\w{6,16}$/.test(this.passwordPay);
+    },
+    getout() {
+      this.flag = 1;
+    },
+    getin() {
+      this.flag = 0;
+    },
+    register() {
+      let { phone, name, passwordPay, password } = this;
+      if (
+        !this.checkPhone() ||
+        !this.checkName() ||
+        !this.checkPassword() ||
+        !this.checkpasswordPay()
+      ) {
+        this.$message.warning("请您仔细核对信息，认真填写！");
+        return;
+      }
+      API.register({ phone, name, passwordPay, password }).then(res => {
+        if (res.code == 0) {
+          this.$message.success(
+            "注册成功，即将返回登录页重新登录！",
+            // {callback:action=> {
+            //  window.location.href = "/#/";
+            // }}
+          );
+          let timer = setTimeout(() => {
+              window.location.href = "/#/login";
+              clearTimeout(timer)
+          },500);
+        } else {
+          Message.error({
+            message: res.codeText,
+            duration: 2000
+          });
+        }
+      });
+    }
+  }
+  // mutation: {
+
+  // }
+};
 </script>
 
 <style lang="less" scoped>
@@ -319,9 +470,6 @@ export default {};
                   .country-container {
                     height: 100%;
                     width: 313.2px;
-
-                    .country-code {
-                    }
                   }
                 }
                 .region_tip_text {
@@ -374,7 +522,6 @@ export default {};
                     }
                   }
                   .inputbg {
-                    float: left;
                     padding-bottom: 15px;
                     input {
                       width: 236px;
@@ -388,7 +535,47 @@ export default {};
                       z-index: 3;
                       outline: 0 none;
                       border: 1px solid #e8e8e8;
+                      margin-bottom: 15px;
                       input {
+                        vertical-align: center;
+                        border: 0;
+                        height: 20px;
+                        line-height: 20px;
+                        padding: 10px;
+                        display: inline-block;
+                      }
+                    }
+                    .err_tip {
+                      margin-bottom: 5px;
+                      line-height: 20px;
+                      color: #ff6700;
+                      .icon_error {
+                        width: 14px;
+                        height: 14px;
+                        margin: -1px 5px 0 0;
+                        overflow: hidden;
+                        display: inline-block;
+                        vertical-align: middle;
+                        background: url(../assets/img/sprite_login.gif);
+                        background-position: 0 -69px;
+                      }
+                      span {
+                        font-size: 14px;
+                        vertical-align: middle;
+                      }
+                    }
+                    .labelbox1 {
+                      height: 41px;
+                      line-height: 42px;
+                      display: inline-block;
+                      margin-left: -1px;
+                      position: relative;
+                      z-index: 3;
+                      outline: 0 none;
+                      border: 1px solid #e8e8e8;
+                      margin-bottom: 15px;
+                      input {
+                        width: 310px;
                         vertical-align: center;
                         border: 0;
                         height: 20px;
