@@ -14,7 +14,8 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error);
 });
 axios.interceptors.response.use(response => {
-    if (response.code != 0) {
+    /* 加了个判断条件 */
+    if (response.code != 0 && response.data.code !=0) {
         Message.error({
             message: response.codeText,
             duration: 1000

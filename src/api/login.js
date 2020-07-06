@@ -2,32 +2,32 @@ import axios from './axios';
 
 //登录
 function userLogin(options) {
-    return axios.post('/login', options)
+    return axios.post('/user/login', options)
 }
 //校验是否登录
 
 function loginOrnot() {
-    return axios.get('/login')
+    return axios.get('/user/login')
 }
 
 //退出登录
 function signout() {
-    return axios.get('/signout')
+    return axios.get('/user/signout')
 }
 
 //注册新用户
 function register(options) {
-    return axios.post('/register', options)
+    return axios.post('/user/register', options)
 }
 
 //获取用户信息
 function getPersonalInfo(id) {
-    return axios.get('/info', params={ id })
+    return axios.get('/user/info', params={ id })
 }
 
 //验证手机号是否被注册
 function phoneNumber(phone){
-    return axios.post('/phone',{
+    return axios.post('/user/phone',{
         phone
     })
 }

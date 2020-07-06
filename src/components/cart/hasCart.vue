@@ -12,10 +12,10 @@
     <!-- 商户列表 -->
     <div class="merchant-list">
       <!-- 每一个商户 -->
-      <div class="merchant-item">
+      <div class="merchant-item" v-for="item in cartData" :key="item.id">
         <div class="merchant-info">
           <a href="javascript:;" class="select-icon"></a>
-          <span class="name">小米自营(特殊商品)</span>
+          <span class="name">{{item.info.category1}}</span>
           <div class="name-right">
             <span>
               <span class="postimg">!</span>
@@ -28,7 +28,7 @@
           <!-- 每一个商品 -->
           <div class="commodity-item clearfix">
             <div class="select">
-              <a href="javascript:;" class="select-icon"></a>
+              <a href="javascript:;" class="select-icon" @click="select" :class="isSelect?'isSelect':null"></a>
             </div>
             <div class="image">
               <img
@@ -40,28 +40,29 @@
               <p>空调A（3匹/变频/新一级能效）</p>
             </div>
             <div class="price">
-              <span>¥4999.00</span>
+              <span>¥{{price}}</span>
             </div>
+            <!-- num 已完成 -->
             <div class="num">
               <div class="can-edit">
                 <div class="num-reduce-add">
-                  <a href="javascript:;" class="m-icon minus"></a>
-                  <span class="txt">1</span>
-                  <a href="javascript:;" class="m-icon plus"></a>
+                  <a href="javascript:;" class="m-icon minus" @click="minus" :class="count===1?null:'min-minus'"></a>
+                  <span class="txt">{{count}}</span>
+                  <a href="javascript:;" class="m-icon plus" @click="plus"></a>
                 </div>
               </div>
 
-              <!-- <el-input-number v-model="num" @change="handleChange" :min="1" :max="10" label="描述文字"></el-input-number> -->
+              
             </div>
-            <div class="subtotal">¥4999</div>
+            <!-- 总价已完成 -->
+            <div class="subtotal">¥{{count*price}}</div>
+            <!-- 删除数据待完成 -->
             <div class="del">
-              <span class="icon"></span>
+              <span class="icon" @click="del()"></span>
             </div>
           </div>
-          
         </div>
       </div>
-      
     </div>
 
     <!-- 结算 -->
@@ -80,19 +81,50 @@
   </div>
 </template>
 <script>
+import Cart from "../../api/cart";
+import Product from "../../api/product";
+let { addCart, changeCount, removeProduct, orderInfo, modifyOrder } = Cart;
+let { getCategory } = Product;
 // @ is an alias to /src
 export default {
   name: "XXX",
   data() {
     return {
-      num: 1
+      count: 1,
+      price:9999,
+      cartData: [],
+      isSelect:true
     };
   },
-  methods: {
-    handleChange(value) {
-      console.log(value);
-    }
+  created() {
+    this.getCartData({ status: 1 });
   },
+  methods: {
+    /* 请求购物车数据 */
+    async getCartData(options) {
+      let result = await orderInfo(options);
+      this.cartData = result.data.filter(item => item.info);
+    },
+    /* 点击勾选商品 */
+    select(){
+      this.isSelect = !this.isSelect;
+    },
+    /* 数量加减 */
+    minus() {
+      if(this.count===1) return;
+      this.count > 1 ? this.count-- : null;
+      console.log(this.count);
+    },
+    plus() {
+      this.count++;
+    },
+    del(){
+      this.cartData.splice(index,1)
+    },
+
+    
+  },
+  
   components: {}
 };
 </script>
@@ -112,6 +144,9 @@ export default {
     background-image: url(../../assets/img/yp-icons-cart.png);
     background-position: 0 -506px;
     // background-position: 0 -418px;
+  }
+  .isSelect{
+    background-position: 0 -418px;
   }
   .title {
     height: 42px;
@@ -261,6 +296,9 @@ export default {
                 .minus {
                   float: left;
                   background-position: 0 -1406px;
+                }
+                .min-minus{
+                  background-position: 0 -1372px;
                 }
                 .plus {
                   float: right;

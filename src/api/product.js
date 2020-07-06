@@ -1,7 +1,7 @@
 import axios from './axios';
 //获取banner数据
 function getBanner() {
-    return axios.get('/banner')
+    return axios.get('/product/banner')
 }
 
 //获取商品列表
@@ -10,27 +10,27 @@ function getProductlist(options) {
         type: '',
         recommend: false
     }, options)
-    return axios.get('/list', options)
+    return axios.get('/product/list', options)
 }
 
 //获取限时抢购的商品 
 function timeLimit(time) {
-    return axios.get('/limited', time)
+    return axios.get('/product/limited', time)
 }
 
 //获取商品信息
 function productInfo(id) {
-    return axios.get('/info', { id })
+    return axios.get('/product/info', { id })
 }
 
 //获取类别
 function getCategory(){
-    return axios.get('/category')
+    return axios.get('/product/category')
 }
 
 //获取服务时间
 function getServerTime(){
-    return axios.get('/serverTime')
+    return axios.get('/product/serverTime')
 }
 
 export default {
@@ -40,6 +40,5 @@ export default {
     productInfo,
     getCategory,
     getServerTime
-
 
 }
