@@ -9,6 +9,8 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
+    "babel-plugin-component": "^1.1.1",
+    "qs": "^6.9.4",
     "blueimp-md5": "^2.16.0",
     "core-js": "^3.6.5",
     "element-ui": "^2.13.2",

@@ -18,7 +18,22 @@ axios.interceptors.request.use(config => {
     return Promise.reject(error);
 });
 axios.interceptors.response.use(response => {
+    /* 加了个判断条件 */
+    if (response.code != 0 && response.data.code !=0 || response.code == 1) {
     console.log(response);
+        if(response.data.code == 1){
+            Message.error({
+                message: response.data.codeText,
+                duration: 2000
+            });
+            return;
+        }
+        Message.error({
+            message: response.codeText,
+            duration: 2000
+        });
+        return; 
+    }
     return response.data;
 }, reason => {
     let response = reason.response;

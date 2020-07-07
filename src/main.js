@@ -5,17 +5,27 @@ import router from './router'
 import store from './store'
 
 
+Vue.config.productionTip = false
+
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 Vue.use(ElementUI);
 Vue.use(VueCookie);
 
-// Vue.use(ElementUI);
+
 
 /* 引入公共样式表 */
 import './assets/css/reset.min.css';
-// import 'element-ui/lib/theme-chalk/index.css';
 Vue.config.productionTip = false
+
+
+/* 按需引入element-ui */
+import { Button, Select,Carousel,CarouselItem } from 'element-ui';
+Vue.use(Button);
+// Vue.use(Select);
+Vue.use(Carousel);
+Vue.use(CarouselItem);
+
 
 new Vue({
   router,

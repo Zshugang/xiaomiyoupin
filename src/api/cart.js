@@ -24,7 +24,7 @@ function orderInfo(options){
     options = Object.assign({
         state:0
     },options)
-    return axios.get('/cart/list',)
+    return axios.get('/cart/list',options)
 }
 
 //修改订单状态
