@@ -19,13 +19,6 @@ axios.interceptors.request.use(config => {
 });
 axios.interceptors.response.use(response => {
     console.log(response);
-    if (response.code == 1) {
-        Message.error({
-            message: response.codeText,
-            duration: 2000
-        });
-        return; 
-    }
     return response.data;
 }, reason => {
     let response = reason.response;

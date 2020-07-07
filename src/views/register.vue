@@ -287,18 +287,18 @@ export default {
         this.$message.warning("请您仔细核对信息，认真填写！");
         return;
       }
-      API.register({ phone, name, passwordPay, password }).then(res => {
+      API.register({ phone, name, password, passwordPay }).then(res => {
         if (res.code == 0) {
           this.$message.success(
-            "注册成功，即将返回登录页重新登录！",
+            "注册成功，即将返回登录页重新登录！"
             // {callback:action=> {
             //  window.location.href = "/#/";
             // }}
           );
           let timer = setTimeout(() => {
-              window.location.href = "/#/login";
-              clearTimeout(timer)
-          },500);
+            window.location.href = "/#/login";
+            clearTimeout(timer);
+          }, 500);
         } else {
           Message.error({
             message: res.codeText,

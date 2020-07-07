@@ -145,6 +145,7 @@
 <script>
 // @ is an alias to /src
 import { mapActions } from "vuex";
+import { Message } from "element-ui";
 import md5 from "blueimp-md5";
 import API from "../api/login";
 export default {
@@ -179,12 +180,20 @@ export default {
       password = md5(password);
       API.userLogin({ account, password }).then(res => {
         console.log(res);
+        console.log(res.code);
+        if (res.code == 1) {
+          Message.error({
+            message: '账号和密码不匹配，请仔细填写!',
+            duration: 2000
+          });
+          return;
+        }
         // console.log(this.$cookie+'hahah')
         //Session会话，需要把浏览器关掉，Session缓冲才会删掉
         // console.log( this.$cookie);
         this.$cookie.set("userId", res.data.id, { expires: "Session" });
         this.saveUserName(res.data.name);
-        console.log(1);
+        // console.log(1);
         // this.$router.push({
         //   name: "Product",
         //   params: {

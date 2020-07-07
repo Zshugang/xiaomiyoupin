@@ -205,7 +205,7 @@ export default {
     async login() {
       let { checkcode, phoneNumber } = this;
       checkcode = md5(checkcode);
-      let res = API.captchaOront({ code: checkcode, phone: phoneNumber });
+      let res = await API.captchaOront({ code: checkcode, phone: phoneNumber });
       if (res.code == 0) {
         window.location.href = "/#/";
       }
