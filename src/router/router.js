@@ -3,6 +3,11 @@ export default [{
     path: '/',
     name: 'Product',
     component: () => import('../views/Product.vue'),
+    children: [{
+        path: 'detailInfo',
+        name: 'detail',
+        component: () => import('../views/goodsInfo.vue')
+    }]
 }, {
     path: '/login',
     name: 'Login',
@@ -31,8 +36,8 @@ export default [{
     path: '/login/register',
     name: 'Register',
     component: () => import('../views/register.vue')
-},{
-    path:'/login/checkPhone',
-    name:'CheckPhone',
-    component:()=>import ('../views/checkPhone.vue')
+}, {
+    path: '/login/checkPhone',
+    name: 'CheckPhone',
+    component: () => import('../views/checkPhone.vue')
 }]

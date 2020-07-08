@@ -7,9 +7,9 @@ import store from './store'
 
 Vue.config.productionTip = false
 
-import ElementUI from 'element-ui';
+// import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
-Vue.use(ElementUI);
+// Vue.use(ElementUI);
 Vue.use(VueCookie);
 
 
@@ -20,7 +20,8 @@ Vue.config.productionTip = false
 
 
 /* 按需引入element-ui */
-import { Button, Select,Carousel,CarouselItem } from 'element-ui';
+import { Button, Select,Carousel,CarouselItem,Message } from 'element-ui';
+// Vue.use(Message);
 Vue.use(Button);
 // Vue.use(Select);
 Vue.use(Carousel);
