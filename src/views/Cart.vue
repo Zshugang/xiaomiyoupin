@@ -41,6 +41,7 @@ export default {
     cartFooter,
     emptyCart,
     hasCart
+
   }
 };
 </script>

@@ -213,6 +213,7 @@
 <script>
 import API from "../api/login";
 import { Message } from "element-ui";
+import md5 from "blueimp-md5";
 export default {
   data() {
     return {
@@ -278,6 +279,8 @@ export default {
     },
     register() {
       let { phone, name, passwordPay, password } = this;
+      password = md5(password);
+      passwordPay = md5(passwordPay);
       if (
         !this.checkPhone() ||
         !this.checkName() ||
@@ -289,16 +292,16 @@ export default {
       }
       API.register({ phone, name, password, passwordPay }).then(res => {
         if (res.code == 0) {
-          this.$message.success(
-            "注册成功，即将返回登录页重新登录！"
-            // {callback:action=> {
-            //  window.location.href = "/#/";
-            // }}
-          );
+          Message.success({
+            message: "注册成功，请重新登录~~",
+            callback: action => {
+              window.location.href = "/#/login";
+            }
+          });
           let timer = setTimeout(() => {
             window.location.href = "/#/login";
             clearTimeout(timer);
-          }, 500);
+          }, 2000);
         } else {
           Message.error({
             message: res.codeText,
