@@ -13,5 +13,10 @@ export default {
   },
   saveProductId(state, productid) {
     state.productID = productid
+  },
+
+  /* 设置商品列表数据 */
+  setProductData(state,options){
+    state.productList = options
   }
 }

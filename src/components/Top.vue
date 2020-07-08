@@ -2,9 +2,19 @@
   <div class="S-header-top">
     <div class="container">
       <div class="S-header-top-right">
-        <div class="S-title login-info">
+        <!-- 未登录状态 -->
+        <div class="nologin" v-if="!isLogin">
+          <router-link to="/login">
+            <span>登录</span>
+          </router-link>
+          <router-link to="/login/register">
+            <span>注册</span>
+          </router-link>
+        </div>
+        <!-- 登录状态 -->
+        <div class="S-title login-info" v-else>
           <i class="S-login"></i>
-          <span class="S-username">22222222222</span>
+          <span class="S-username">{{$store.state.account}}</span>
           <i class="S-down-icon"></i>
           <ul class="S-login-info-ul">
             <li>
@@ -58,9 +68,25 @@
 export default {
   name: "XXX",
   data() {
-    return {};
+    return {
+      isLogin: false,
+
+    };
   },
-  components: {}
+  created(){
+    this.login()
+  },
+  components: {},
+  methods: {
+    login() {
+      if(this.$store.state.account){
+        this.isLogin = true;
+
+      }
+      // console.log(this.$store.state)
+      // this.$store
+    }
+  }
 };
 </script>
 <style lang="less" scoped>
@@ -70,6 +96,7 @@ export default {
   color: #e7e7e7;
   background: #333;
   font-size: 14px;
+  text-align: center;
   .container {
     width: 1080px;
     margin: 0 auto;
@@ -77,6 +104,22 @@ export default {
     .S-header-top-right {
       float: right;
 
+      .nologin {
+        float: left;
+        line-height: 48px;
+        height: 100%;
+        position: relative;
+        cursor: pointer;
+        margin-right: 8px;
+
+        span {
+          margin-left: 8px;
+          color: #e7e7e7;
+        }
+        span:hover {
+          color: #fff;
+        }
+      }
       .S-title {
         float: left;
         line-height: 48px;
@@ -126,6 +169,7 @@ export default {
           height: 30px;
           border-radius: 50%;
           background: url(../assets/img/yp-icons.png) 0 -726px;
+          background-size: center;
           position: absolute;
           top: 8px;
           left: 0;
@@ -155,9 +199,7 @@ export default {
         }
       }
       .login-info:hover .S-login-info-ul {
-        // height: 100%;
         display: block;
-        // opacity: 1;
       }
       .line {
         display: inline-block;
