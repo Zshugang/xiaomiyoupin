@@ -3,11 +3,11 @@ export default [{
     path: '/',
     name: 'Product',
     component: () => import('../views/Product.vue'),
-    children: [{
-        path: 'detailInfo',
-        name: 'detail',
-        component: () => import('../views/goodsInfo.vue')
-    }]
+},
+{
+    path: '/detailInfo/:id',
+    name: 'detail',
+    component: () => import('../views/goodsInfo.vue')
 }, {
     path: '/login',
     name: 'Login',
