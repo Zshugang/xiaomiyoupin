@@ -42,7 +42,7 @@ export default {
   },
   methods:{
     godetail(id){
-      console.log("/detailInfo/"+`${id}`);
+      // console.log("/detailInfo/"+`${id}`);
       this.$router.push({path:"/detailInfo/"+`${id}`})
     }
   }

@@ -5,13 +5,14 @@ import router from './router'
 import store from './store'
 
 
+
 Vue.config.productionTip = false
+
 
 // import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 // Vue.use(ElementUI);
 Vue.use(VueCookie);
-
 
 
 /* 引入公共样式表 */
@@ -20,12 +21,13 @@ Vue.config.productionTip = false
 
 
 /* 按需引入element-ui */
-import { Button, Select,Carousel,CarouselItem,Message } from 'element-ui';
+import { Button, Select,Carousel,CarouselItem,Message,Image, } from 'element-ui';
 // Vue.use(Message);
 Vue.use(Button);
 // Vue.use(Select);
 Vue.use(Carousel);
 Vue.use(CarouselItem);
+Vue.use(Image);
 
 
 new Vue({

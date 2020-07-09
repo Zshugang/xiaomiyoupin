@@ -1,5 +1,6 @@
 <template>
   <div class="S-has-cart">
+    <!-- 表格标题 -->
     <div class="title">
       <a href="javascript:;" class="select-icon"></a>
       <span class="all-txt">全选</span>
@@ -28,7 +29,12 @@
           <!-- 每一个商品 -->
           <div class="commodity-item clearfix">
             <div class="select">
-              <a href="javascript:;" class="select-icon" @click="select" :class="isSelect?'isSelect':null"></a>
+              <a
+                href="javascript:;"
+                class="select-icon"
+                @click="select(item)"
+                :class="isSelect?'isSelect':null"
+              ></a>
             </div>
             <div class="image">
               <img
@@ -46,19 +52,22 @@
             <div class="num">
               <div class="can-edit">
                 <div class="num-reduce-add">
-                  <a href="javascript:;" class="m-icon minus" @click="minus" :class="count===1?null:'min-minus'"></a>
+                  <a
+                    href="javascript:;"
+                    class="m-icon minus"
+                    @click="minus"
+                    :class="count===1?null:'min-minus'"
+                  ></a>
                   <span class="txt">{{count}}</span>
                   <a href="javascript:;" class="m-icon plus" @click="plus"></a>
                 </div>
               </div>
-
-              
             </div>
             <!-- 总价已完成 -->
             <div class="subtotal">¥{{count*price}}</div>
             <!-- 删除数据待完成 -->
             <div class="del">
-              <span class="icon" @click="del()"></span>
+              <span class="icon" @click="del(item.id)"></span>
             </div>
           </div>
         </div>
@@ -76,7 +85,7 @@
         <span class="total-after-prefer">合计：</span>
         <span class="total-price-num">¥0.00</span>
       </div>
-      <div class="checkout">去结算</div>
+      <div class="checkout" :class="'checkout-total'">去结算</div>
     </div>
   </div>
 </template>
@@ -91,9 +100,10 @@ export default {
   data() {
     return {
       count: 1,
-      price:9999,
+      price: 9999,
       cartData: [],
-      isSelect:true
+      isSelect: true,
+      selectTotal: []
     };
   },
   created() {
@@ -106,25 +116,23 @@ export default {
       this.cartData = result.data.filter(item => item.info);
     },
     /* 点击勾选商品 */
-    select(){
+    select(item) {
       this.isSelect = !this.isSelect;
     },
     /* 数量加减 */
     minus() {
-      if(this.count===1) return;
+      if (this.count === 1) return;
       this.count > 1 ? this.count-- : null;
-      console.log(this.count);
+      // console.log(this.count);
     },
     plus() {
       this.count++;
     },
-    del(){
-      this.cartData.splice(index,1)
-    },
-
-    
+    del(id) {
+      this.cartData.splice(id, 1);
+    }
   },
-  
+
   components: {}
 };
 </script>
@@ -145,7 +153,7 @@ export default {
     background-position: 0 -506px;
     // background-position: 0 -418px;
   }
-  .isSelect{
+  .isSelect {
     background-position: 0 -418px;
   }
   .title {
@@ -173,8 +181,6 @@ export default {
     }
     .total {
       width: 129px;
-    }
-    .edit {
     }
   }
 
@@ -297,7 +303,7 @@ export default {
                   float: left;
                   background-position: 0 -1406px;
                 }
-                .min-minus{
+                .min-minus {
                   background-position: 0 -1372px;
                 }
                 .plus {
@@ -403,6 +409,10 @@ export default {
     line-height: 80px;
     text-align: center;
     font-size: 20px;
+  }
+  .checkout-total {
+    background-color: #a9010d;
+    cursor: pointer;
   }
 }
 </style>

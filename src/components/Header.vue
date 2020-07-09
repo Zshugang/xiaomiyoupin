@@ -11,7 +11,7 @@
           </ul>
         </div>
 
-        <div class="cart">
+        <div class="cart" @click="goCart">
           <a class="cart-icon"></a>
           <span class="cart-count">{{count}}</span>
         </div>
@@ -35,7 +35,11 @@ export default {
         count:0
     };
   },
-  methods: {},
+  methods: {
+    goCart(){
+      this.$router.push("/cart")
+    }
+  },
   components: {}
 };
 </script>

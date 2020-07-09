@@ -32,8 +32,8 @@
             <li>
               <a href="#">我的订单</a>
             </li>
-            <li>
-              <a href="#">我的订单</a>
+            <li @click="backLogin">
+              <a href="#">退出登录</a>
             </li>
           </ul>
         </div>
@@ -69,22 +69,22 @@ export default {
   name: "XXX",
   data() {
     return {
-      isLogin: false,
-
+      isLogin: false
     };
   },
-  created(){
-    this.login()
+  created() {
+    this.login();
   },
   components: {},
   methods: {
     login() {
-      if(this.$store.state.account){
+      if (this.$store.state.account) {
         this.isLogin = true;
-
       }
-      // console.log(this.$store.state)
-      // this.$store
+    },
+    backLogin() {
+      this.isLogin = true;
+      this.$router.push("/login");
     }
   }
 };

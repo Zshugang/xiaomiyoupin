@@ -7,7 +7,7 @@
     <div class="S-cart">
       <div class="container">
         <div class="S-cart-title">
-          <span class="title-tohome">首页</span>
+          <span class="title-tohome" @click="goHome">首页</span>
           <span>></span>
           <span class="title-tocart">购物车</span>
         </div>
@@ -33,7 +33,9 @@ import hasCart from "../components/cart/hasCart";
 export default {
   name: "XXX",
   data() {
-    return {};
+    return {
+
+    };
   },
   components: {
     top,
@@ -41,7 +43,14 @@ export default {
     cartFooter,
     emptyCart,
     hasCart
-
+  },
+  created(){
+    console.log(this.$store.state.count)
+  },
+  methods:{
+    goHome(){
+      this.$router.push("/");
+    }
   }
 };
 </script>
