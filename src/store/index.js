@@ -7,18 +7,20 @@ Vue.use(Vuex)
 
 export default new Vuex.Store({
   state: {
-    
+
     //用户名
-    account:'',
+    account: '',
     //用户ID
-    userID:'',
+    userID: '',
     //购物车数量
-    cartCount:0,
+    cartCount: 0,
     //商品id
-    productID:'',
+    productID: '',
+    //用户头像
+    userPic: '',
 
     /* 商品离列表数据 */
-    productList:[]
+    productList: []
   },
   mutations,
   actions

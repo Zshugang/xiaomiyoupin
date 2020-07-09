@@ -185,6 +185,11 @@ export default {
         // console.log( this.$cookie);
         this.$cookie.set("userId", res.data.id, { expires: "Session" });
         this.saveUserName(res.data.name);
+        this.saveUserId(res.data.id);
+        this.saveUserPic(res.data.pic);
+        console.log(res.data.id);
+        console.log(res.data.pic);
+        // console.log(1)
         // console.log(1);
         // this.$router.push({
         //   name: "Product",
@@ -197,7 +202,7 @@ export default {
         window.location.href = "/#/";
       });
     },
-    ...mapActions(["saveUserName"])
+    ...mapActions(["saveUserName", "saveUserId", "saveUserPic"])
   }
 };
 </script>

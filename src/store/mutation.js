@@ -14,6 +14,9 @@ export default {
   saveProductId(state, productid) {
     state.productID = productid
   },
+  saveUserPic(state,userpic){
+    state.userPic = userpic
+  },
 
   /* 设置商品列表数据 */
   setProductData(state,options){

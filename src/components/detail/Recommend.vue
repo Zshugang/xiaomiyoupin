@@ -1,28 +1,47 @@
 <template>
-  <div class="best-product">
-    <div class="image-container">
-      <div class="m-product-image-container">
-        <div class="img-container" style="padding:22px 53px;width:154px;height:153px;">
-          <img
-            src="../../assets/img/recommend.jpg"
-            alt="【罗永浩推荐】清蜓便携随手吸尘器"
-            style="height:154px;width:154px;margin-top:-0.5px;"
-          />
+  <div>
+    <div v-for="(item,index) in productList" :key="index" class="best-product">
+      <div class="image-container">
+        <div class="m-product-image-container">
+          <div class="img-container" style="padding:22px 53px;width:154px;height:153px;">
+            <img
+              :src="item.pic"
+              alt="【罗永浩推荐】清蜓便携随手吸尘器"
+              style="height:154px;width:154px;margin-top:-0.5px;"
+            />
+          </div>
         </div>
       </div>
+      <p>16800Pa大吸力，车家两用，一键倒尘，除螨率＞99.9%</p>
+      <h5>【罗永浩推荐】清蜓便携随手吸尘器</h5>
+      <h4>
+        <span class="dollar">￥</span>
+        <span class="price">389</span>
+      </h4>
     </div>
-    <p>16800Pa大吸力，车家两用，一键倒尘，除螨率＞99.9%</p>
-    <h5>【罗永浩推荐】清蜓便携随手吸尘器</h5>
-    <h4>
-      <span class="dollar">￥</span>
-      <span class="price">389</span>
-    </h4>
   </div>
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
-  name: "Recommend"
+  name: "Recommend",
+  props: ["picid"],
+  data() {
+    return {
+      
+    };
+  },
+  computed: {
+    ...mapState(["productList"])
+  },
+  methods: {
+   
+  },
+  mounted() {
+    console.log(this.productList);
+    console.log(this.picid);
+  }
 };
 </script>
 

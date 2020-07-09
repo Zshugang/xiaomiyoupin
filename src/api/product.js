@@ -20,16 +20,16 @@ function timeLimit(time) {
 
 //获取商品信息
 function productInfo(id) {
-    return axios.get('/product/info', { id })
+    return axios.get(`/product/info?id=`+`${id}`)
 }
 
 //获取类别
-function getCategory(){
+function getCategory() {
     return axios.get('/product/category')
 }
 
 //获取服务时间
-function getServerTime(){
+function getServerTime() {
     return axios.get('/product/serverTime')
 }
 
