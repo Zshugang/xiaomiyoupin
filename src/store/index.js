@@ -17,8 +17,10 @@ export default new Vuex.Store({
     //商品id
     productID:'',
 
-    /* 商品离列表数据 */
-    productList:[]
+    /* 商品列表数据 */
+    productList:[],
+    /* 添加购物车 */
+    cartData:[]
   },
   mutations,
   actions

@@ -30,6 +30,23 @@ Vue.use(CarouselItem);
 Vue.use(Image);
 
 
+/* 购物车登录态校验 */
+router.beforeEach((to, from, next) => {
+
+  // 跳转购物车前
+  if(to.name === "Cart" ){
+    
+    /* if(){
+
+    } */
+
+    next();
+  }
+
+  next();
+})
+
+
 new Vue({
   router,
   store,

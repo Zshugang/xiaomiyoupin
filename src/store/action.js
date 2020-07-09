@@ -21,5 +21,10 @@ export default {
         // console.log(data.data);
         store.commit('setProductData',data.data)
       })
+    },
+
+    /* 购物车数据 */
+    getCartData(){
+      
     }
   }
