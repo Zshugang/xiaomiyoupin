@@ -2,7 +2,12 @@
   <div class="S-has-cart">
     <!-- 表格标题 -->
     <div class="title">
-      <a href="javascript:;" class="select-icon"></a>
+      <a
+        href="javascript:;"
+        class="select-icon"
+        :class="{'isSelect':allSelect}"
+        @click="topAllSelect(allSelect)"
+      ></a>
       <span class="all-txt" @click="topAllSelect">全选</span>
       <span class="product">商品信息</span>
       <span class="price">单价</span>
@@ -16,7 +21,7 @@
       <div class="merchant-item" v-for="(item,index) in cartData" :key="index">
         <!-- v-for="item in cartData" :key="item.id" -->
         <div class="merchant-info">
-          <a href="javascript:;" class="select-icon"></a>
+          <!-- <a href="javascript:;" class="select-icon" :class="{'isSelect':allSelect}"></a> -->
           <span class="name">{{item.category1}}</span>
           <div class="name-right">
             <span>
@@ -75,15 +80,20 @@
     <!-- 结算 -->
     <div class="cart-total">
       <div class="ico">
-        <a href="javascript:;" class="select-icon"></a>
+        <a
+          href="javascript:;"
+          class="select-icon"
+          :class="{'isSelect':allSelect}"
+          @click="topAllSelect(allSelect)"
+        ></a>
         <span class="select-text">全选</span>
-        <span class="already-select">以选0件</span>
+        <span class="already-select">以选{{selectNum}}件</span>
       </div>
       <div class="total-price">
         <span class="total-after-prefer">合计：</span>
-        <span class="total-price-num">¥0.00</span>
+        <span class="total-price-num">¥{{total|money}}</span>
       </div>
-      <div class="checkout" :class="'checkout-total'">去结算</div>
+      <div class="checkout" :class="{'checkout-total':total}">去结算</div>
     </div>
   </div>
 </template>
@@ -93,6 +103,7 @@ import Product from "../../api/product";
 let { addCart, changeCount, removeProduct, orderInfo, modifyOrder } = Cart;
 let { getCategory } = Product;
 // @ is an alias to /src
+
 export default {
   name: "XXX",
   data() {
@@ -120,12 +131,7 @@ export default {
             "https://img.youpin.mi-img.com/shopmain/693ed3defbda3f629e5ce0996a59f4d6.png@base@tag=imgScale&F=webp&h=800&w=800?w=800&h=800",
           name: "空调A（3匹/变频/新一级能效）"
         }
-      ],
-      allSelect: [],
-      cartTotalPrice: 0, // 商品总金额
-      checkedNum: 0,// 选中商品数量
-      // selectProduct: [],
-      
+      ]
     };
   },
   created() {
@@ -136,12 +142,13 @@ export default {
     async getCartData(options) {
       let result = await orderInfo(options);
       console.log(result);
-
       this.cartData = result.data.filter(item => item.info);
     },
     /* 点击全选 */
-    topAllSelect() {
-      this.isSelect = !this.isSelect;
+    topAllSelect(val) {
+      // this.isSelect = !this.isSelect;
+      this.cartData.forEach(item => (item.isSelect = !val));
+      console.log(val);
     },
     /* 数量加减 单选*/
     updateCart(item, type) {
@@ -155,7 +162,7 @@ export default {
       }
 
       changeCount({ id: item.id, count: item.count }).then(data => {
-        console.log(data);
+        // console.log(data);
       });
     },
     /* 删除 */
@@ -168,6 +175,35 @@ export default {
       });
     }
   },
+  computed: {
+    /* 总金额 */
+    total() {
+      let ary = this.cartData.filter(item => item.isSelect);
+      return ary.reduce((prev, next) => {
+        return prev + next.count * next.price;
+      }, 0);
+    },
+    /* 选中的数量 */
+    selectNum() {
+      let ary = this.cartData.filter(item => item.isSelect);
+      return ary.reduce((prev, next) => {
+        return prev + next.count;
+      }, 0);
+    },
+    /* 被动全选 */
+    allSelect() {
+      return this.cartData.every(item => item.isSelect);
+    }
+    /* 被动选择商家未完成 */
+
+  },
+  /* 价钱保留两位小数 */
+  filters: {
+    money: function(val) {
+      return val.toFixed(2);
+    }
+  },
+
   components: {}
 };
 </script>

@@ -32,12 +32,16 @@ export default {
   name: "XXX",
   data() {
     return {
-        count:0
+      count: this.$store.state.cartCount,
+      userPic: this.$store.state.userPic
     };
   },
+  created() {
+    // console.log(this.$store.state.userPic);
+  },
   methods: {
-    goCart(){
-      this.$router.push("/cart")
+    goCart() {
+      this.$router.push("/cart");
     }
   },
   components: {}
@@ -89,7 +93,7 @@ export default {
         }
       }
       .seach {
-        float:right;
+        float: right;
         width: 296px;
         // height: 32px;
         padding-left: 35px;
@@ -142,8 +146,8 @@ export default {
           background-position: 0 -1202px;
           background-image: url(../assets/img/yp-icons-cart.png);
         }
-        .cart-icon:hover{
-            background-position: 0 -1168px;
+        .cart-icon:hover {
+          background-position: 0 -1168px;
         }
         .cart-count {
           position: absolute;
