@@ -8,10 +8,7 @@
         <div class="header-detail">
           <div class="banner">
             <div class="main fl">
-              <img
-                :src="fiveimages[0]"
-                alt
-              />
+              <img :src="fiveimages[flag]" alt />
             </div>
             <div class="thumb fr">
               <div class="thumb-container" style="top:0px">
@@ -25,10 +22,10 @@
                 </div>
               </div>
               <div class="thumb-arrow-up">
-                <a class="m-icons m-icons-up" href="javascript:;"></a>
+                <a class="m-icons m-icons-up" href="javascript:;" @click="showpic(0)"></a>
               </div>
               <div class="thumb-arrow-down">
-                <a class="m-icons m-icons-down" data-src href="javascript:;"></a>
+                <a class="m-icons m-icons-down" data-src href="javascript:;" @click="showpic(1)"></a>
               </div>
             </div>
           </div>
@@ -50,112 +47,66 @@
                 </div>
               </div>
               <div class="service-line">
-                <h5 class="sku-title">服务</h5>
+                <h5 class="sku-title" @mouseenter="show=!show">服务</h5>
                 <div class="introduce-container">
                   <p class="icon">!</p>
-                  <div class="content">
-                    <div
-                      class="cardmodal-outer-container"
-                      style="width: 500px; left: -20px; top: -20px;"
-                    >
-                      <div class="inner-container">
-                        <div class="container" style="width: 494px;">
-                          <div class="content-main">
-                            <div class="text-item">
-                              <p class="text-title">满99包邮</p>
-                              <p class="text-content">本商品满99元可包邮，不足99元收取运费10元</p>
-                            </div>
-                            <div class="text-item">
-                              <p class="text-title">三方店铺</p>
-                              <p
-                                class="text-content"
-                              >本商品为有品精选精品，第三方品牌方为实际销售方，小米有品精心挑选，严格把关，为您精选品质上乘的精品商品。</p>
-                            </div>
-                            <div class="text-item">
-                              <p class="text-title">由小米有品提供配送服务，上海新案数字科技有限公司提供售后</p>
-                              <p class="service-item-qualification">查看商家资质</p>
-                            </div>
-                            <div class="text-item">
-                              <p class="text-title">7天无理由</p>
-                              <p class="text-content">本商品支持7天无理由退货</p>
-                            </div>
-                            <div class="text-item">
-                              <p class="text-title">平台运费说明</p>
-                              <p class="text-content">由小米平台发货的小米自营商品,单笔满99元免运费,不满99元收取10元运费;</p>
-                              <p class="text-content">有品自营产品、有品平台三方产品，单笔订单满99元免运费，不满99元收取10元运费;</p>
-                              <p class="text-content">特殊商品需要单独收取运费,具体以实际结算金额为准;</p>
-                              <p class="text-content">优惠券不能抵扣运费。</p>
-                            </div>
-                            <div class="text-item">
-                              <p class="text-title">退换货运费声明</p>
-                              <p class="text-content">非质量问题退换货,运费不予返还;</p>
-                              <p class="text-content">因质量问题退换货,运费予以返还,多件产品只退部分产品时,运费按比例返还;</p>
-                              <p class="text-content">电视等大件商品,无质量问题退货产生的运费由购买者承担,从退款中直接扣除。</p>
-                              <p class="text-content">包邮订单申请退款，剩余订单不达包邮门槛，将补扣10元运费。</p>
-                            </div>
-                            <div class="text-item">
-                              <p class="text-title">企业信息</p>
-                              <p class="text-content">企业名称： 上海新案数字科技有限公司</p>
-                              <p class="text-content">企业执照注册号： 91310118MA1JLHQR3W</p>
-                              <p class="text-content">企业地址： 上海市闵行区紫星路588号2幢2220室</p>
-                              <p class="text-content">企业电话： 021-61890899</p>
-                              <p class="text-content">营业期限： 2016年09月30日至2026年09月29日</p>
-                              <p
-                                class="text-content"
-                              >经营范围： 从事信息科技、汽车科技、电子科技、机电科技、通信科技、计算机科技、环保科技领域内的技术开发、技术咨询、技术服务、技术转让，计算机网络工程，计算机、软硬件及辅助设备、办公用品、电子产品、汽摩配件、通讯设备、仪器仪表、电子元器件、机电设备的销售，从事货物及技术的进出口业务，电子商务（不得从事金融业务），设计、制作、代理、发布各类广告，自由设备租赁，商务咨询。【依法须经批准的项目，经相关部门批准后方可开展经验活动】</p>
+                  <transition name="slide-fade">
+                    <div class="content" v-if="show">
+                      <div
+                        class="cardmodal-outer-container"
+                        style="width: 500px; left: -20px; top: -20px;"
+                      >
+                        <div class="inner-container" @mouseleave="show=!show">
+                          <div class="container" style="width: 494px;">
+                            <div class="content-main">
+                              <div class="text-item">
+                                <p class="text-title">满99包邮</p>
+                                <p class="text-content">本商品满99元可包邮，不足99元收取运费10元</p>
+                              </div>
+                              <div class="text-item">
+                                <p class="text-title">三方店铺</p>
+                                <p
+                                  class="text-content"
+                                >本商品为有品精选精品，第三方品牌方为实际销售方，小米有品精心挑选，严格把关，为您精选品质上乘的精品商品。</p>
+                              </div>
+                              <div class="text-item">
+                                <p class="text-title">由小米有品提供配送服务，上海新案数字科技有限公司提供售后</p>
+                              </div>
+                              <div class="text-item">
+                                <p class="text-title">7天无理由</p>
+                                <p class="text-content">本商品支持7天无理由退货</p>
+                              </div>
+                              <div class="text-item">
+                                <p class="text-title">平台运费说明</p>
+                                <p class="text-content">由小米平台发货的小米自营商品,单笔满99元免运费,不满99元收取10元运费;</p>
+                                <p class="text-content">有品自营产品、有品平台三方产品，单笔订单满99元免运费，不满99元收取10元运费;</p>
+                                <p class="text-content">特殊商品需要单独收取运费,具体以实际结算金额为准;</p>
+                                <p class="text-content">优惠券不能抵扣运费。</p>
+                              </div>
+                              <div class="text-item">
+                                <p class="text-title">退换货运费声明</p>
+                                <p class="text-content">非质量问题退换货,运费不予返还;</p>
+                                <p class="text-content">因质量问题退换货,运费予以返还,多件产品只退部分产品时,运费按比例返还;</p>
+                                <p class="text-content">电视等大件商品,无质量问题退货产生的运费由购买者承担,从退款中直接扣除。</p>
+                                <p class="text-content">包邮订单申请退款，剩余订单不达包邮门槛，将补扣10元运费。</p>
+                              </div>
+                              <div class="text-item">
+                                <p class="text-title">企业信息</p>
+                                <p class="text-content">企业名称： 上海新案数字科技有限公司</p>
+                                <p class="text-content">企业执照注册号： 91310118MA1JLHQR3W</p>
+                                <p class="text-content">企业地址： 上海市闵行区紫星路588号2幢2220室</p>
+                                <p class="text-content">企业电话： 021-61890899</p>
+                                <p class="text-content">营业期限： 2016年09月30日至2026年09月29日</p>
+                                <p
+                                  class="text-content"
+                                >经营范围： 从事信息科技、汽车科技、电子科技、机电科技、通信科技、计算机科技、环保科技领域内的技术开发、技术咨询、技术服务、技术转让，计算机网络工程，计算机、软硬件及辅助设备、办公用品、电子产品、汽摩配件、通讯设备、仪器仪表、电子元器件、机电设备的销售，从事货物及技术的进出口业务，电子商务（不得从事金融业务），设计、制作、代理、发布各类广告，自由设备租赁，商务咨询。【依法须经批准的项目，经相关部门批准后方可开展经验活动】</p>
+                              </div>
                             </div>
                           </div>
                         </div>
                       </div>
-                      <!-- <div class="size">
-                        <div class="content-main">
-                          <div class="text-item">
-                            <p class="text-title">满99包邮</p>
-                            <p class="text-content">本商品满99元可包邮，不足99元收取运费10元</p>
-                          </div>
-                          <div class="text-item">
-                            <p class="text-title">三方店铺</p>
-                            <p
-                              class="text-content"
-                            >本商品为有品精选精品，第三方品牌方为实际销售方，小米有品精心挑选，严格把关，为您精选品质上乘的精品商品。</p>
-                          </div>
-                          <div class="text-item">
-                            <p class="text-title">由小米有品提供配送服务，上海新案数字科技有限公司提供售后</p>
-                            <p class="service-item-qualification">查看商家资质</p>
-                          </div>
-                          <div class="text-item">
-                            <p class="text-title">7天无理由</p>
-                            <p class="text-content">本商品支持7天无理由退货</p>
-                          </div>
-                          <div class="text-item">
-                            <p class="text-title">平台运费说明</p>
-                            <p class="text-content">由小米平台发货的小米自营商品,单笔满99元免运费,不满99元收取10元运费;</p>
-                            <p class="text-content">有品自营产品、有品平台三方产品，单笔订单满99元免运费，不满99元收取10元运费;</p>
-                            <p class="text-content">特殊商品需要单独收取运费,具体以实际结算金额为准;</p>
-                            <p class="text-content">优惠券不能抵扣运费。</p>
-                          </div>
-                          <div class="text-item">
-                            <p class="text-title">退换货运费声明</p>
-                            <p class="text-content">非质量问题退换货,运费不予返还;</p>
-                            <p class="text-content">因质量问题退换货,运费予以返还,多件产品只退部分产品时,运费按比例返还;</p>
-                            <p class="text-content">电视等大件商品,无质量问题退货产生的运费由购买者承担,从退款中直接扣除。</p>
-                            <p class="text-content">包邮订单申请退款，剩余订单不达包邮门槛，将补扣10元运费。</p>
-                          </div>
-                          <div class="text-item">
-                            <p class="text-title">企业信息</p>
-                            <p class="text-content">企业名称： 上海新案数字科技有限公司</p>
-                            <p class="text-content">企业执照注册号： 91310118MA1JLHQR3W</p>
-                            <p class="text-content">企业地址： 上海市闵行区紫星路588号2幢2220室</p>
-                            <p class="text-content">企业电话： 021-61890899</p>
-                            <p class="text-content">营业期限： 2016年09月30日至2026年09月29日</p>
-                            <p
-                              class="text-content"
-                            >经营范围： 从事信息科技、汽车科技、电子科技、机电科技、通信科技、计算机科技、环保科技领域内的技术开发、技术咨询、技术服务、技术转让，计算机网络工程，计算机、软硬件及辅助设备、办公用品、电子产品、汽摩配件、通讯设备、仪器仪表、电子元器件、机电设备的销售，从事货物及技术的进出口业务，电子商务（不得从事金融业务），设计、制作、代理、发布各类广告，自由设备租赁，商务咨询。【依法须经批准的项目，经相关部门批准后方可开展经验活动】</p>
-                          </div>
-                        </div>
-                      </div>-->
                     </div>
-                  </div>
+                  </transition>
                 </div>
                 <div class="service">
                   <div class="service-item">
@@ -302,6 +253,7 @@
     </div>
     <!-- 浮层 -->
     <info-floating></info-floating>
+
     <info-footer></info-footer>
   </div>
 </template>
@@ -316,10 +268,17 @@ import API from "../api/product";
 export default {
   data() {
     return {
+      //获取跳转过来的的商品id
       id: this.$route.params.id,
+      //图片
       fiveimages: [],
       infoImages: [],
-      dec: {}
+      //从vuex中获取的商品列表信息
+      dec: {},
+      //展示标识
+      flag: 0,
+      //显示服务
+      show: false
     };
   },
   components: {
@@ -332,6 +291,7 @@ export default {
   mounted() {
     this.getProductInfo();
   },
+  computed: {},
   methods: {
     getProductInfo() {
       console.log(this.id);
@@ -347,7 +307,6 @@ export default {
       //       // this.pic = val1.data.pic;
       //     })
       //   );
-
       API.productInfo(this.id).then(res => {
         console.log(res);
         console.log(res.data);
@@ -355,6 +314,18 @@ export default {
         this.infoImages = res.data.detail.images;
         this.dec = res.data;
       });
+    },
+
+    //上下展示图片
+    showpic(lx) {
+      // let { flag, fiveimages } = this;
+      if (lx === 1) {
+        this.flag === this.fiveimages.length - 1
+          ? (this.flag = this.fiveimages.length - 1)
+          : this.flag++;
+      } else {
+        this.flag === 0 ? (this.flag = 0) : this.flag--;
+      }
     }
   }
 };
@@ -531,7 +502,7 @@ export default {
         float: left;
         .name {
           margin-bottom: 4px;
-          margin-right:10px;
+          margin-right: 10px;
           .good-name {
             vertical-align: middle;
             line-height: 26px;
@@ -631,14 +602,17 @@ export default {
                 cursor: pointer;
               }
               .content {
-                display: none;
+                // display: none;
                 z-index: 10000;
                 .cardmodal-outer-container {
                   position: relative;
                   overflow: visible;
                   .inner-container {
+                    z-index: 10000;
                     position: absolute;
-                    // -webkit-box-shadow: 0 0 24px rgba(0,0,0,.1);
+                    margin-left: 80px;
+                    margin-top: 42px;
+                    -webkit-box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
                     box-shadow: 0 0 24px rgba(0, 0, 0, 0.1);
                     border: 1px solid #e7e7e7;
                     padding-top: 15px;
@@ -1023,5 +997,16 @@ export default {
       }
     }
   }
+}
+.slide-fade-enter-active {
+  transition: all 0.3s ease;
+}
+.slide-fade-leave-active {
+  transition: all 0.8s cubic-bezier(1, 0.5, 0.8, 1);
+}
+.slide-fade-enter, .slide-fade-leave-to
+/* .slide-fade-leave-active for below version 2.1.8 */ {
+  transform: translateX(10px);
+  opacity: 0;
 }
 </style>

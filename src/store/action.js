@@ -18,17 +18,6 @@ export default {
     context.commit('saveProductId', productid)
   },
 
-<<<<<<< HEAD
-    /* 商品列表数据请求 */
-    getProductData(store,options){
-      PRODUCT.getProductlist(options).then(data=>{
-        // console.log(data.data);
-        store.commit('setProductData',data.data)
-      })
-    },
-
-  }
-=======
   /* 商品列表数据请求 */
   getProductData(store, options) {
     PRODUCT.getProductlist(options).then(data => {
@@ -37,4 +26,3 @@ export default {
     })
   }
 }
->>>>>>> 70ba03402870e3d411b1cb4514e710047e05aac2
