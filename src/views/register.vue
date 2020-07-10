@@ -294,9 +294,9 @@ export default {
         if (res.code == 0) {
           Message.success({
             message: "注册成功，请重新登录~~",
-            callback: action => {
-              window.location.href = "/#/login";
-            }
+            // callback: action => {
+            //   window.location.href = "/#/login";
+            // }
           });
           let timer = setTimeout(() => {
             window.location.href = "/#/login";

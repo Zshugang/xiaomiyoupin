@@ -9,41 +9,19 @@
           <div class="banner">
             <div class="main fl">
               <img
-                src="https://img.youpin.mi-img.com/shopmain/196efe32ad64b4e532d9ee0a01ec1171.jpeg?w=1080&h=1080&w=1080&h=1270&crop=a_0_95_1080_1080"
+                :src="fiveimages[0]"
                 alt
               />
             </div>
             <div class="thumb fr">
               <div class="thumb-container" style="top:0px">
-                <div class="thumb-pic" style="border-color:border-color: rgb(236, 236, 236);">
-                  <img
-                    src="https://img.youpin.mi-img.com/800_pic/b5f7f7dd1783e6656a0a1574a09a8b74.png"
-                    alt
-                  />
-                </div>
-                <div class="thumb-pic" style="border-color:border-color: rgb(236, 236, 236);">
-                  <img
-                    src="https://img.youpin.mi-img.com/800_pic/b5f7f7dd1783e6656a0a1574a09a8b74.png"
-                    alt
-                  />
-                </div>
-                <div class="thumb-pic" style="border-color:border-color: rgb(236, 236, 236);">
-                  <img
-                    src="https://img.youpin.mi-img.com/800_pic/b5f7f7dd1783e6656a0a1574a09a8b74.png"
-                    alt
-                  />
-                </div>
-                <div class="thumb-pic" style="border-color:border-color: rgb(236, 236, 236);">
-                  <img
-                    src="https://img.youpin.mi-img.com/800_pic/b5f7f7dd1783e6656a0a1574a09a8b74.png"
-                    alt
-                  />
-                </div>
-                <div class="thumb-pic" style="border-color:border-color: rgb(236, 236, 236);">
-                  <img
-                    src="https://img.youpin.mi-img.com/800_pic/b5f7f7dd1783e6656a0a1574a09a8b74.png"
-                    alt
-                  />
+                <div
+                  class="thumb-pic"
+                  v-for="(item,index) in fiveimages"
+                  :key="index"
+                  style="border-color:border-color: rgb(236, 236, 236);"
+                >
+                  <img :src="item" alt />
                 </div>
               </div>
               <div class="thumb-arrow-up">
@@ -56,18 +34,18 @@
           </div>
           <div class="sku-container">
             <div class="name">
-              <div class="good-name fl">70迈智能记录仪1S</div>
+              <div class="good-name fl">{{dec.title}}</div>
             </div>
-            <div class="summary">1080P 智能语音声控</div>
+            <div class="summary">{{dec.detail.text}}</div>
             <div class="promotion-box"></div>
             <div class="card">
               <div class="price-line">
                 <h5 class="sku-title">售价</h5>
                 <div class="price">
                   <span class="money-symbol">￥</span>
-                  <span class="value">189</span>
+                  <span class="value">{{dec.discount}}</span>
                   <span class="money-symbol">起</span>
-                  <span class="market-price">￥199</span>
+                  <span class="market-price">￥{{dec.discount+200}}</span>
                   <span class="m-sale-tag">特价</span>
                 </div>
               </div>
@@ -129,7 +107,7 @@
                           </div>
                         </div>
                       </div>
-                      <div class="size">
+                      <!-- <div class="size">
                         <div class="content-main">
                           <div class="text-item">
                             <p class="text-title">满99包邮</p>
@@ -175,7 +153,7 @@
                             >经营范围： 从事信息科技、汽车科技、电子科技、机电科技、通信科技、计算机科技、环保科技领域内的技术开发、技术咨询、技术服务、技术转让，计算机网络工程，计算机、软硬件及辅助设备、办公用品、电子产品、汽摩配件、通讯设备、仪器仪表、电子元器件、机电设备的销售，从事货物及技术的进出口业务，电子商务（不得从事金融业务），设计、制作、代理、发布各类广告，自由设备租赁，商务咨询。【依法须经批准的项目，经相关部门批准后方可开展经验活动】</p>
                           </div>
                         </div>
-                      </div>
+                      </div>-->
                     </div>
                   </div>
                 </div>
@@ -286,80 +264,10 @@
             <div class="main-body">
               <div>
                 <img
-                  src="https://img.youpin.mi-img.com/shopmain/68e882affa467aa812bf0117b25d91ff.jpg?w=1080&amp;h=1540"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/32f170165fd10ca7a707cda412918b94.jpg?w=1080&amp;h=915"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/055ee8da07eaa515c8657faeccabe7c1.jpg?w=1080&amp;h=1488"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/ae7e49ba7d881079c209878771e5a0d7.jpg?w=1080&amp;h=1600"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/8d689c4f942d1c8dee83b08e1a6c7e42.jpg?w=1080&amp;h=1997"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/a9ac774091461f32d58918ba517f92d6.gif?w=1080&amp;h=1680"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/f0b81c3cbc56de2133194235c589a8d1.jpg?w=1080&amp;h=1470"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/3104b5fc6922e1865fea2ff859837c96.jpg?w=1080&amp;h=1795"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/3f669e7845fe495af52b847becf26740.jpg?w=1080&amp;h=1706"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/79f5626f81d959e98c7304346bedba5c.jpg?w=1080&amp;h=720"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/f675fa0987fac0da4f88954ba09e92be.jpg?w=1080&amp;h=1406"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/3807eed39484ccff54706a432ebc5cee.jpg?w=1080&amp;h=1196"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/06d80687b05ddf64fc5ae1cf7819f450.jpg?w=1080&amp;h=718"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/9d25ae0ebc63a44cb5b6cbe4d6574a0e.jpg?w=1080&amp;h=2150"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/b3d29d21a9ddf783542dd2ce687b5586.jpg?w=1080&amp;h=2160"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/e1ab2ad98f356ac74dc277ea7d9ef612.jpg?w=1080&amp;h=1401"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/492d71bd5e7ec867cf1ed962eb73c004.jpg?w=1080&amp;h=795"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/shopmain/b77378a34eb0fe3f71ea1aca2c3a888a.jpg?w=1080&amp;h=606"
-                  style="width: 100%;"
-                />
-                <img
-                  src="https://img.youpin.mi-img.com/editor1/34d9309abc25227d26891dddcdf946d0.png?w=1080&amp;h=510"
-                  style="width: 100%;"
+                  v-for="(item,index) in infoImages "
+                  :key="index"
+                  :src="item"
+                  style="width: 100%;display:block"
                 />
               </div>
             </div>
@@ -387,42 +295,7 @@
               <span class="special-line"></span>相关推荐
               <span class="special-line"></span>
             </h2>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
-            <info-recommend></info-recommend>
+            <info-recommend :picid="id"></info-recommend>
           </div>
         </div>
       </div>
@@ -439,13 +312,50 @@ import infoFooter from "../components/Footer.vue";
 import infoHeader from "../components/Header.vue";
 import infoRecommend from "../components/detail/Recommend.vue";
 import infoFloating from "../components/detail/FloatingLayer";
+import API from "../api/product";
 export default {
+  data() {
+    return {
+      id: this.$route.params.id,
+      fiveimages: [],
+      infoImages: [],
+      dec: {}
+    };
+  },
   components: {
     infoTop,
     infoFooter,
     infoHeader,
     infoRecommend,
     infoFloating
+  },
+  mounted() {
+    this.getProductInfo();
+  },
+  methods: {
+    getProductInfo() {
+      console.log(this.id);
+      console.log(this.productList);
+      // axios
+      //   .all([API.productInfo(this.id), this.$store.dispatch("getProductData")])
+      //   .then(
+      //     axios.spread(function(val1, val2) {
+      //       console.log(val1.data.images)
+      //       let value1 = val1.data.images;
+      //       this.fiveimages = value1;
+      //       // this.infoImages = val1.data.detail.images;
+      //       // this.pic = val1.data.pic;
+      //     })
+      //   );
+
+      API.productInfo(this.id).then(res => {
+        console.log(res);
+        console.log(res.data);
+        this.fiveimages = res.data.images;
+        this.infoImages = res.data.detail.images;
+        this.dec = res.data;
+      });
+    }
   }
 };
 </script>
@@ -621,6 +531,7 @@ export default {
         float: left;
         .name {
           margin-bottom: 4px;
+          margin-right:10px;
           .good-name {
             vertical-align: middle;
             line-height: 26px;
@@ -630,6 +541,7 @@ export default {
           }
         }
         .summary {
+          margin-left: 10px;
           width: 84%;
           line-height: 18px;
           font-size: 12px;

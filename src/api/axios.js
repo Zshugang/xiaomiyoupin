@@ -19,7 +19,7 @@ axios.interceptors.request.use(config => {
 });
 axios.interceptors.response.use(response => {
     /* 加了个判断条件 */
-    // console.log(response);
+    console.log(response);
     if (response.code != 0 && response.data.code != 0) {
         // console.log(response);
         if (response.data.code == 1) {
