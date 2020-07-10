@@ -171,7 +171,7 @@
             </div>
             <div class="btn-line">
               <div class="buy-btn-container">
-                <a class="m-btns m-btn-middle m-btn-brown" href="javascript:;">加入购物车</a>
+                <a class="m-btns m-btn-middle m-btn-brown" href="javascript:;" @click="goCart">加入购物车</a>
                 <a class="m-btns m-btn-middle m-btn-brown-stroke" href="javascript:;">立即购买</a>
               </div>
               <div class="favor-btn">
@@ -326,6 +326,9 @@ export default {
       } else {
         this.flag === 0 ? (this.flag = 0) : this.flag--;
       }
+    },
+    goCart(){
+      this.$router.push("/cart");
     }
   }
 };
