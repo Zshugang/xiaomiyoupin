@@ -16,13 +16,14 @@ function changeCount(options){
 
 //移除某产品
 function removeProduct(id){
-    return axios.get('/cart/remove',id)
+    return axios.get('/cart/remove?id='+`${id}`)
 }
 
 //获取当前用户指定状态下的订单信息
 function orderInfo(options){
     options = Object.assign({
-        state:0
+        state:0,
+        uid:1
     },options)
     return axios.get('/cart/list',options)
 }

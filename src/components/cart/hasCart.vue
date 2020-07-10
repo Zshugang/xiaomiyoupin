@@ -3,7 +3,7 @@
     <!-- 表格标题 -->
     <div class="title">
       <a href="javascript:;" class="select-icon"></a>
-      <span class="all-txt">全选</span>
+      <span class="all-txt" @click="topAllSelect">全选</span>
       <span class="product">商品信息</span>
       <span class="price">单价</span>
       <span class="num">数量</span>
@@ -11,12 +11,13 @@
       <span class="edit">操作</span>
     </div>
     <!-- 商户列表 -->
-    <div class="merchant-list">
+    <div class="merchant-list" type="selection">
       <!-- 每一个商户 -->
-      <div class="merchant-item" v-for="item in cartData" :key="item.id">
+      <div class="merchant-item" v-for="(item,index) in cartData" :key="index">
+        <!-- v-for="item in cartData" :key="item.id" -->
         <div class="merchant-info">
           <a href="javascript:;" class="select-icon"></a>
-          <span class="name">{{item.info.category1}}</span>
+          <span class="name">{{item.category1}}</span>
           <div class="name-right">
             <span>
               <span class="postimg">!</span>
@@ -32,21 +33,18 @@
               <a
                 href="javascript:;"
                 class="select-icon"
-                @click="select(item)"
-                :class="isSelect?'isSelect':null"
+                @click="updateCart(item)"
+                :class="{'isSelect':item.isSelect}"
               ></a>
             </div>
             <div class="image">
-              <img
-                src="https://img.youpin.mi-img.com/shopmain/693ed3defbda3f629e5ce0996a59f4d6.png@base@tag=imgScale&F=webp&h=800&w=800?w=800&h=800"
-                alt
-              />
+              <img :src="item.img" alt />
             </div>
             <div class="name">
-              <p>空调A（3匹/变频/新一级能效）</p>
+              <p>{{item.name}}</p>
             </div>
             <div class="price">
-              <span>¥{{price}}</span>
+              <span>¥{{item.price}}</span>
             </div>
             <!-- num 已完成 -->
             <div class="num">
@@ -55,19 +53,19 @@
                   <a
                     href="javascript:;"
                     class="m-icon minus"
-                    @click="minus"
-                    :class="count===1?null:'min-minus'"
+                    @click="updateCart(item,'-')"
+                    :class="item.count===1?null:'min-minus'"
                   ></a>
-                  <span class="txt">{{count}}</span>
-                  <a href="javascript:;" class="m-icon plus" @click="plus"></a>
+                  <span class="txt">{{item.count}}</span>
+                  <a href="javascript:;" class="m-icon plus" @click="updateCart(item,'+')"></a>
                 </div>
               </div>
             </div>
             <!-- 总价已完成 -->
-            <div class="subtotal">¥{{count*price}}</div>
+            <div class="subtotal">¥{{item.count*item.price}}</div>
             <!-- 删除数据待完成 -->
             <div class="del">
-              <span class="icon" @click="del(item.id)"></span>
+              <span class="icon" @click="del(item)"></span>
             </div>
           </div>
         </div>
@@ -99,40 +97,77 @@ export default {
   name: "XXX",
   data() {
     return {
-      count: 1,
-      price: 9999,
-      cartData: [],
-      isSelect: true,
-      selectTotal: []
+      // count: 1,
+      // price: 9999,
+      cartData: [
+        {
+          id: 1,
+          isSelect: true,
+          count: 1,
+          price: 9999,
+          category1: "小米商城",
+          img:
+            "https://img.youpin.mi-img.com/shopmain/693ed3defbda3f629e5ce0996a59f4d6.png@base@tag=imgScale&F=webp&h=800&w=800?w=800&h=800",
+          name: "空调A（3匹/变频/新一级能效）"
+        },
+        {
+          id: 2,
+          isSelect: true,
+          count: 1,
+          price: 9999,
+          category1: "小米商城",
+          img:
+            "https://img.youpin.mi-img.com/shopmain/693ed3defbda3f629e5ce0996a59f4d6.png@base@tag=imgScale&F=webp&h=800&w=800?w=800&h=800",
+          name: "空调A（3匹/变频/新一级能效）"
+        }
+      ],
+      allSelect: [],
+      cartTotalPrice: 0, // 商品总金额
+      checkedNum: 0,// 选中商品数量
+      // selectProduct: [],
+      
     };
   },
   created() {
-    this.getCartData({ status: 1 });
+    // this.getCartData({ status: 1});
   },
   methods: {
     /* 请求购物车数据 */
     async getCartData(options) {
       let result = await orderInfo(options);
+      console.log(result);
+
       this.cartData = result.data.filter(item => item.info);
     },
-    /* 点击勾选商品 */
-    select(item) {
+    /* 点击全选 */
+    topAllSelect() {
       this.isSelect = !this.isSelect;
     },
-    /* 数量加减 */
-    minus() {
-      if (this.count === 1) return;
-      this.count > 1 ? this.count-- : null;
-      // console.log(this.count);
+    /* 数量加减 单选*/
+    updateCart(item, type) {
+      if (type === "-") {
+        if (item.count === 1) return;
+        item.count > 1 ? item.count-- : null;
+      } else if (type === "+") {
+        item.count++;
+      } else {
+        item.isSelect = !item.isSelect;
+      }
+
+      changeCount({ id: item.id, count: item.count }).then(data => {
+        console.log(data);
+      });
     },
-    plus() {
-      this.count++;
-    },
-    del(id) {
-      this.cartData.splice(id, 1);
+    /* 删除 */
+    del(item) {
+      removeProduct(item.id).then(data => {
+        console.log(data);
+        if (data.code === 0) {
+          this.cartData.splice(item, 1);
+        }
+      });
     }
   },
-
   components: {}
 };
 </script>

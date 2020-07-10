@@ -21,7 +21,7 @@ Vue.config.productionTip = false
 
 
 /* 按需引入element-ui */
-import { Button, Select,Carousel,CarouselItem,Message,Image, } from 'element-ui';
+import { Button, Select,Carousel,CarouselItem,Message,Image } from 'element-ui';
 // Vue.use(Message);
 Vue.use(Button);
 // Vue.use(Select);
@@ -30,12 +30,14 @@ Vue.use(CarouselItem);
 Vue.use(Image);
 
 
+
+
 /* 购物车登录态校验 */
 router.beforeEach((to, from, next) => {
 
   // 跳转购物车前
   if(to.name === "Cart" ){
-    
+
     /* if(){
 
     } */

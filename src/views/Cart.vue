@@ -13,9 +13,9 @@
         </div>
 
         <!-- 空购物车组件 -->
-        <!-- <empty-cart></empty-cart> -->
+        <empty-cart v-if="cartData.length===0"></empty-cart>
         <!-- 有商品的购物车 -->
-        <has-cart></has-cart>
+        <has-cart v-else></has-cart>
       </div>
 
       <!-- 底部组件 -->
@@ -34,7 +34,15 @@ export default {
   name: "XXX",
   data() {
     return {
-
+      cartData: [
+        {
+          isSelect: true,
+          category1: "小米商城",
+          img:
+            "https://img.youpin.mi-img.com/shopmain/693ed3defbda3f629e5ce0996a59f4d6.png@base@tag=imgScale&F=webp&h=800&w=800?w=800&h=800",
+          name: "空调A（3匹/变频/新一级能效）"
+        }
+      ]
     };
   },
   components: {
@@ -44,11 +52,11 @@ export default {
     emptyCart,
     hasCart
   },
-  created(){
-    console.log(this.$store.state.count)
+  created() {
+    console.log(this.$store.state.count);
   },
-  methods:{
-    goHome(){
+  methods: {
+    goHome() {
       this.$router.push("/");
     }
   }

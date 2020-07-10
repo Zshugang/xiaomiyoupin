@@ -7,7 +7,7 @@
       </div>
 
       <div class="gohome">
-        <div class="gohome-text">继续逛</div>
+        <div class="gohome-text" @click="goProduct">{{userId?"继续逛":"去登录"}}</div>
       </div>
       
     </div>
@@ -18,9 +18,24 @@
 export default {
   name: "XXX",
   data() {
-    return {};
+    return {
+      userId:this.$store.state.account
+    };
   },
-  components: {}
+  created(){
+    console.log(this.$store.state.account)
+    console.log(this.$store.state.userID)
+  },
+  components: {},
+  methods:{
+    goProduct(){
+      if(this.userId){
+        this.$router.push('/')
+      }else{
+        this.$router.push('/login')
+      }
+    }
+  }
 };
 </script>
 <style lang="less">
